@@ -1,33 +1,32 @@
 # docker-nvm-base
-FROM ubuntu:precise
+FROM ubuntu:xenial
 MAINTAINER John *Seg* Seggerson <seg@segonmedia.com>
 
-# Set home envrioment
-ENV HOME /home
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# Add apt repositories
-RUN echo 'deb http://archive.ubuntu.com/ubuntu precise main universe' > /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu precise-security main universe' >> /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu precise-updates main universe' >> /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu precise main universe' >> /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu precise-security main universe' >> /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu precise-updates main universe' >> /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list
-RUN mkdir -p $HOME
-RUN apt-get update
-RUN apt-get -f install
-RUN apt-get build-dep -qy build-essential libssl-dev git curl
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y git \
+                       curl \
+                       build-essential \
+                       libssl-dev
 
-# Install NVM.
-RUN curl --location https://raw.github.com/creationix/nvm/master/install.sh | sh && \
-    /bin/bash -c "echo \"[[ -s \$HOME/.nvm/nvm.sh ]] && . \$HOME/.nvm/nvm.sh\" >> /etc/profile.d/npm.sh" && \
-    echo "[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh" >> $HOME/.bashrc
+ENV NVM_DIR /usr/local/.nvm
+ENV NODE_VERSION stable
 
-ENV PATH $HOME/.nvm/bin:$PATH
+# Install nvm
+RUN git clone https://github.com/creationix/nvm.git $NVM_DIR && \
+    cd $NVM_DIR && \
+    git checkout `git describe --abbrev=0 --tags`
 
-# Set entrypoint and Bash.
-ENTRYPOINT ["/bin/bash", "--login", "-i", "-c"]
-CMD ["bash"]
+# Install default version of Node.js
+RUN source $NVM_DIR/nvm.sh && \
+    nvm install $NODE_VERSION && \
+    nvm alias default $NODE_VERSION && \
+    nvm use default
+
+# Add nvm.sh to .bashrc for startup...
+RUN echo "source ${NVM_DIR}/nvm.sh" > $HOME/.bashrc && \
+    source $HOME/.bashrc
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
