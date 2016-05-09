@@ -29,4 +29,10 @@ RUN echo "source ${NVM_DIR}/nvm.sh" > $HOME/.bashrc && \
     source $HOME/.bashrc
 
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+
+# Install RVM for Ruby
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN curl -sSL https://get.rvm.io | bash
+
+
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
