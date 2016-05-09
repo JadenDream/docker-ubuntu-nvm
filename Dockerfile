@@ -17,7 +17,8 @@ RUN echo 'deb-src http://archive.ubuntu.com/ubuntu precise-updates main universe
 RUN echo 'deb-src http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list
 RUN mkdir -p $HOME
 RUN apt-get update
-RUN apt-get install -qy build-essential libssl-dev git curl
+RUN apt-get -f install
+RUN apt-get install -qy libc-dev g++ dpkg-dev perl-modules liberror-perl zlib1g-dev build-essential libssl-dev git curl
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
