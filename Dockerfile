@@ -1,5 +1,5 @@
 # docker-nvm-base
-FROM ubuntu
+FROM ubuntu:precise
 MAINTAINER John *Seg* Seggerson <seg@segonmedia.com>
 
 # Set home envrioment
