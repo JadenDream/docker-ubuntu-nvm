@@ -48,4 +48,11 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN curl -sSL https://get.rvm.io | bash
 
+# Install latest Ruby version.
+RUN /bin/bash -l -c "rvm requirements"
+RUN /bin/bash -l -c "rvm install ruby"
+RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
+RUN /bin/bash -l -c "gem install sass --no-rdoc --no-ri"
+
+# Set the path.
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
