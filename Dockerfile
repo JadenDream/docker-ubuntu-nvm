@@ -22,7 +22,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        libtool \
                        bison \
                        pkg-config \
-                       libffi-dev
+                       libffi-dev \
+                       python \
+                       python-dev \
+                       python-pip \
+                       python-virtualenv && \
+     rm -rf /var/lib/apt/lists/*
 
 ENV NVM_DIR /usr/local/.nvm
 ENV NODE_VERSION stable
@@ -56,3 +61,6 @@ RUN /bin/bash -l -c "gem install sass --no-rdoc --no-ri"
 
 # Set the path.
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
+
+# Update/Install PIP's
+RUN pip install $(pip list --outdated | awk '{ print $1 }') --upgrade && pip install awscli
