@@ -4,8 +4,8 @@ MAINTAINER John *Seg* Seggerson <seg@segonmedia.com>
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    apt-get install -y git \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update --no-cache && \
+    apt-get install --no-cache -y git \
                        curl \
                        build-essential \
                        libssl-dev \
@@ -23,19 +23,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        bison \
                        pkg-config \
                        libffi-dev \
-		               add  \
                        automake \
-                       alpine-sdk  \
                        nasm  \
-                       build-base \
-                       zlib \
-                       zlib-dev \
-                       libpng \
                        libpng-dev\
-                       libwebp \
                        libwebp-dev \
-                       libjpeg-turbo \
-                       libjpeg-turbo-dev \
                        python \
                        python-dev \
                        python-pip \
