@@ -4,8 +4,8 @@ MAINTAINER John *Seg* Seggerson <seg@segonmedia.com>
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update --no-cache && \
-    apt-get install --no-cache -y git \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y git \
                        curl \
                        build-essential \
                        libssl-dev \
