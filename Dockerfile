@@ -44,6 +44,8 @@ RUN git clone https://github.com/creationix/nvm.git $NVM_DIR && \
 # Install default version of Node.js
 RUN source $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
+    nvm install lts/boron && \
+    nvm install lts/carbon && \
     nvm alias default $NODE_VERSION && \
     nvm use default
 
