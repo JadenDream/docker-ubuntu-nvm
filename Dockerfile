@@ -27,6 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        nasm  \
                        libpng-dev\
                        libwebp-dev \
+                       libmysqlclient-dev \
                        python \
                        python-dev \
                        python-pip \
