@@ -28,6 +28,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        libpng-dev\
                        libwebp-dev \
                        libmysqlclient-dev \
+                       postgresql-client \
                        python \
                        python-dev \
                        python-pip \
