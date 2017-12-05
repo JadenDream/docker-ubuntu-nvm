@@ -6,6 +6,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     apt-get install -y git \
+                       zip \
                        curl \
                        build-essential \
                        libssl-dev \
@@ -33,7 +34,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        python-dev \
                        python-pip \
                        python-virtualenv && \
-                       zip \
      rm -rf /var/lib/apt/lists/*
 
 ENV NVM_DIR /usr/local/.nvm
