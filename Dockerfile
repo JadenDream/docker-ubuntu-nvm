@@ -33,6 +33,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        python-dev \
                        python-pip \
                        python-virtualenv && \
+                       zip \
      rm -rf /var/lib/apt/lists/*
 
 ENV NVM_DIR /usr/local/.nvm
