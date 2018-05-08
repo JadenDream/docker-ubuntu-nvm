@@ -73,5 +73,5 @@ ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 # Update/Install PIP's
 RUN pip install --upgrade pip
-RUN pip install $(pip list --outdated | awk '{ print $1 }') --upgrade
+RUN pip install -U $(pip freeze | cut -d '=' -f 1)
 RUN pip install awscli
