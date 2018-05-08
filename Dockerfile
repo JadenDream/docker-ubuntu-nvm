@@ -72,4 +72,6 @@ RUN /bin/bash -l -c "gem install sass --no-rdoc --no-ri"
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 # Update/Install PIP's
-RUN pip install $(pip list --outdated | awk '{ print $1 }') --upgrade && pip install awscli
+RUN pip install --upgrade pip
+RUN pip install $(pip list --outdated | awk '{ print $1 }') --upgrade
+RUN pip install awscli
