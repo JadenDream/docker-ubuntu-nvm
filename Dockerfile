@@ -30,6 +30,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
                        libwebp-dev \
                        libmysqlclient-dev \
                        postgresql-client \
+                       gnupg2 \
                        python \
                        python-dev \
                        python-pip \
@@ -61,7 +62,9 @@ RUN echo "source ${NVM_DIR}/nvm.sh" > $HOME/.bashrc && \
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 
 # Install RVM for Ruby
-RUN gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN echo 409B6B1796C275462A1703113804BB82D39DC0E3:6: | gpg2 --import-ownertrust # mpapis@gmail.com
+RUN echo 7D2BAF1CF37B13E2069D6956105BD0E739499BDB:6: | gpg2 --import-ownertrust # piotr.kuczynski@gmail.com
 RUN curl -sSL https://get.rvm.io | bash -s stable
 
 # Install latest Ruby version.
