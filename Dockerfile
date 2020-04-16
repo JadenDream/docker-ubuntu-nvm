@@ -67,8 +67,8 @@ RUN curl -sSL https://get.rvm.io | bash -s stable
 # Install latest Ruby version.
 RUN /bin/bash -l -c "rvm requirements"
 RUN /bin/bash -l -c "rvm install ruby"
-RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
-RUN /bin/bash -l -c "gem install sass --no-rdoc --no-ri"
+RUN /bin/bash -l -c "gem install bundler --no-document"
+RUN /bin/bash -l -c "gem install sass --no-document"
 
 # Set the path.
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
